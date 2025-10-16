@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アンケート回答済み確認画面</title>
+    <!-- Tailwind CSSのロード -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            /* 画面中央に表示するための設定 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            /* コンテナの背景、角丸、影を設定 */
+            padding: 24px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ユーザー要望のメッセージコンテンツ -->
+        <div class="p-6 rounded-xl border border-gray-300 bg-white shadow-lg">
+            
+            <!-- 「緑チェック」アンケート回答済みのお方ですね！ -->
+            <h2 class="text-3xl font-bold text-green-600 mb-4 flex items-center justify-center">
+                <span class="mr-2">✅</span> アンケート回答済みのお方ですね！
+            </h2>
+            
+            <!-- 「黒い文字＆同じ感じの大きさ」スタッフにこの画面を提示してください！ -->
+            <p class="text-xl text-gray-800 mb-6 font-semibold">
+                スタッフにこの画面を提示してください！
+            </p>
+            
+            <!-- スタッフ確認用エリア -->
+            <div class="p-3 bg-gray-100 rounded-lg text-sm text-gray-500 border border-gray-300">
+                <p class="font-bold mb-1">スタッフ確認用</p>
+                <p>フォーム回答済みかつ、3回目以降のお方</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
