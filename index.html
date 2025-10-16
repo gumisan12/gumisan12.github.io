@@ -7,8 +7,9 @@
     <!-- Tailwind CSSのロード -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* JSによるリダイレクトが完了するまで、画面を真っ白に保ちます */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
         body {
+            font-family: 'Inter', sans-serif;
             background-color: #f7f7f7;
             display: flex;
             justify-content: center;
@@ -16,11 +17,43 @@
             min-height: 100vh;
             margin: 0;
         }
+        .container {
+            max-width: 400px;
+            width: 90%;
+            padding: 24px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        /* 初回確認メッセージのスタイル（緑色で目立つように） */
+        .initial-check {
+            border: 4px solid #10b981; /* Tailwind green-500 */
+            background-color: #ecfdf5; /* Tailwind green-50 */
+            padding: 20px;
+            border-radius: 12px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 初期表示コンテンツを非表示にし、JSで表示を制御 */
+        #content {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- 画面が一瞬たりとも表示されないようにするため、コンテンツは空にしておく -->
-    <div id="content"></div> 
+    <div class="container">
+        <!-- 初期表示コンテンツ（JSで初回時のみ表示される） -->
+        <div id="content">
+            <h1 class="text-2xl font-bold mb-4 text-gray-800">2-4電子科カジノへようこそ！</h1>
+            <p class="text-lg text-gray-600">
+                こちらの画面を受付スタッフに見せてください。
+            </p>
+        </div>
+    </div>
 
     <script>
         // --- 訪問者を識別するJavaScript ---
@@ -30,34 +63,40 @@
         // Local Storageから回数を取得（なければ0）
         let visitCount = parseInt(localStorage.getItem(VISITED_KEY) || '0', 10);
         
-        // 現在のURLからファイル名を除いたディレクトリパスを取得し、絶対URLを構成
-        // 例: 'https://example.com/index.html' -> 'https://example.com/'
-        const currentPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        // 現在のURLからディレクトリパスを安全に取得する
+        const path = window.location.pathname;
+        const currentPath = path.substring(0, path.lastIndexOf('/') + 1);
 
         
         // 初回アクセス時 (1回目)
         if (visitCount === 0) {
-            // 1回目：訪問履歴を保存 (1を設定)
+            // 1回目：訪問履歴を '1' に設定 (2回目のアクセスと見なされるようにする)
             localStorage.setItem(VISITED_KEY, '1');
             
-            // 【重要】Form誘導画面 (count=2) に強制リダイレクト
-            // 絶対URLを生成
-            const absoluteUrl = `${currentPath}${REDIRECT_URL}?count=2`;
-            window.location.assign(absoluteUrl); 
+            // 初回訪問者向けのコンテンツを構築・表示
+            document.getElementById('content').innerHTML = `
+                <div class="initial-check">
+                    <h2 class="text-3xl font-bold text-green-600 mb-2">
+                        ✅ 初回入場を確認しました！
+                    </h2>
+                    <p class="text-gray-700 mt-4 text-xl">
+                        スタッフにこの画面を見せ、入場処理とチップを受け取ってください。
+                    </p>
+                </div>
+            `;
+            // コンテンツを表示状態にする
+            document.getElementById('content').style.display = 'block';
 
         } 
-        // 2回目以降のアクセス時
+        // 2回目以降のアクセス時 (訪問履歴が1以上の場合)
         else {
-            // 2回目以降：訪問履歴を更新 (常に 2 に固定)
+            // 2回目以降：訪問履歴を '2' に設定 (リダイレクト先で count=3 に対応するため)
             localStorage.setItem(VISITED_KEY, '2'); 
             
-            // 【重要】チップ付与画面 (count=3) に強制リダイレクト
-            // 絶対URLを生成
-            const absoluteUrl = `${currentPath}${REDIRECT_URL}?count=3`;
+            // 【重要】Form誘導/チップ付与画面 (count=3) に強制リダイレクト
+            const absoluteUrl = `${window.location.origin}${currentPath}${REDIRECT_URL}?count=3`;
             window.location.assign(absoluteUrl);
         }
-
-        // リダイレクト処理が完了するまで、画面が切り替わるのを防ぐ
     </script>
 </body>
 </html>
