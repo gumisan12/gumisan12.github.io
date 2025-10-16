@@ -11,7 +11,7 @@
         </p>
     </div>
 
-    <script>
+<script>
         // --- 訪問者を識別するJavaScript ---
         const VISITED_KEY = 'festival_visited';
         const REDIRECT_URL = 'thankyou.html'; // 2回目に飛ばしたいページのURL
@@ -29,8 +29,10 @@
             // Local Storageに訪問履歴を保存
             localStorage.setItem(VISITED_KEY, 'true');
             
-            // 初回訪問者向けのコンテンツをそのまま表示
-            document.getElementById('content').innerHTML += '<p>（ ）</p>';
+            // ★ここを変更します★
+            // 初回訪問者向けのコンテンツを追記
+            document.getElementById('content').innerHTML += '<h2 style="color: green; border: 3px solid green; padding: 10px;">✅ 初回入場を確認しました！</h2><p>受付処理を行ってください。</p>';
+            // ★変更ここまで★
         }
     </script>
 </body>
