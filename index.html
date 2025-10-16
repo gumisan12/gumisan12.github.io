@@ -89,7 +89,16 @@
 
         } 
         // 2回目以降のアクセス時 (訪問履歴が1以上の場合)
-        else {
+        else if (visitCount === 1){
+            // 2回目以降：訪問履歴を '2' に設定 (リダイレクト先で count=3 に対応するため)
+            localStorage.setItem(VISITED_KEY, '1'); 
+            
+            // 【重要】Form誘導/チップ付与画面 (count=3) に強制リダイレクト
+            const absoluteUrl = `${window.location.origin}${currentPath}${REDIRECT_URL}?count=3`;
+            window.location.assign(absoluteUrl);
+        }
+
+        else if (visitCount === 2){
             // 2回目以降：訪問履歴を '2' に設定 (リダイレクト先で count=3 に対応するため)
             localStorage.setItem(VISITED_KEY, '2'); 
             
