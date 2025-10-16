@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>文化祭へようこそ！</title>
+</head>
+<body>
+    <h1>ようこそ！〇〇高校文化祭へ！</h1>
+    <p>見どころやタイムテーブルをチェックしてください。</p>
+    <p>楽しんでいただけましたか？</p>
+    <div id="content">
+        <p>
+            **🌟初回訪問特典🌟** このページを再度開くと、特別なアンケートページへ移動します。
+        </p>
+    </div>
+
+    <script>
+        // --- 訪問者を識別するJavaScript ---
+        const VISITED_KEY = 'festival_visited';
+        const REDIRECT_URL = 'thankyou.html'; // 2回目に飛ばしたいページのURL
+        
+        // Local Storageから訪問履歴をチェック
+        if (localStorage.getItem(VISITED_KEY) === 'true') {
+            // 履歴がある（2回目以降のアクセス）の場合
+            
+            // ページを別のURLにリダイレクトする
+            window.location.href = REDIRECT_URL;
+            
+        } else {
+            // 履歴がない（初回アクセス）の場合
+            
+            // Local Storageに訪問履歴を保存
+            localStorage.setItem(VISITED_KEY, 'true');
+            
+            // 初回訪問者向けのコンテンツをそのまま表示
+            document.getElementById('content').innerHTML += '<p>（ ）</p>';
+        }
+    </script>
+</body>
+</html>
