@@ -2,22 +2,58 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>2-4電子科カジノへようこそ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-4電子科カジノ 受付画面</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 400px;
+            width: 90%;
+            padding: 24px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        /* 初回確認メッセージのスタイル（緑色で目立つように） */
+        .initial-check {
+            border: 4px solid #10b981; /* Tailwind green-500 */
+            background-color: #ecfdf5; /* Tailwind green-50 */
+            padding: 20px;
+            border-radius: 12px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
-    <div id="content">
-        <p>
-            こちらの画面を受付の人に見せてください。
-        </p>
-        <p>
-            (初めてのお客様です！)
-        </p>
+    <div class="container">
+        <!-- 初期表示コンテンツ -->
+        <div id="content">
+            <h1 class="text-2xl font-bold mb-4 text-gray-800">2-4電子科カジノへようこそ！</h1>
+            <p class="text-lg text-gray-600">
+                こちらの画面を受付スタッフに見せてください。
+            </p>
+        </div>
     </div>
 
-<script>
+    <script>
         // --- 訪問者を識別するJavaScript ---
         const VISITED_KEY = 'festival_visited';
-        const REDIRECT_URL = 'thankyou.html'; // 2回目に飛ばしたいページのURL
+        const REDIRECT_URL = 'thankyou.html'; // 2回目に飛ばしたいページのURL (追加チップ配布/アンケートページ)
         
         // Local Storageから訪問履歴をチェック
         if (localStorage.getItem(VISITED_KEY) === 'true') {
@@ -30,12 +66,20 @@
             // 履歴がない（初回アクセス）の場合
             
             // Local Storageに訪問履歴を保存
+            // この処理が完了した時点で、以降のアクセスは2回目と判定されます。
             localStorage.setItem(VISITED_KEY, 'true');
             
-            // ★ここを変更します★
             // 初回訪問者向けのコンテンツを追記
-            document.getElementById('content').innerHTML += '<h2 style="color: green; border: 3px solid green; padding: 10px;">✅ 初回入場を確認しました！</h2><p>受付処理を行ってください。</p>';
-            // ★変更ここまで★
+            document.getElementById('content').innerHTML = `
+                <div class="initial-check">
+                    <h2 class="text-3xl font-bold text-green-600 mb-2">
+                        ✅ 初回入場を確認しました！
+                    </h2>
+                    <p class="text-gray-700 mt-4 text-xl">
+                        スタッフにこの画面を見せ、入場処理とチップを受け取ってください。
+                    </p>
+                </div>
+            `;
         }
     </script>
 </body>
