@@ -2,36 +2,48 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>追加チップ配布とアンケートのご案内</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Tailwindのスタイルに合わせて、以前のインラインスタイルを整理 */
+        body {
+            font-family: sans-serif;
+            background-color: #f7f7f7;
+        }
+        .custom-border {
+            border: 2px dashed gray;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .yellow-box {
+            background-color: #FFFACD;
+            border: 5px solid #FFD700;
+            padding: 15px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-<body>
-    <div style="text-align: center; padding: 20px; border: 2px dashed gray; max-width: 400px; margin: 20px auto; font-family: sans-serif;">
+<body class="p-5 flex justify-center items-center min-h-screen">
+    <div class="custom-border rounded-lg bg-white shadow-lg">
         
-        <h1 style="font-size: 1.8em; margin-bottom: 5px; color: #333;">
+        <h1 class="text-xl font-bold mb-1 text-gray-800">
             追加チップ配布のご案内
         </h1>
-        <div style="background-color: #FFFACD; border: 5px solid #FFD700; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-            <p style="font-size: 1.4em; font-weight: bold; color: #333;">
-                こちらの画面を**受付スタッフ**に見せてください。
-            </p>
-        </div>
         
-        <h2 style="color: green; font-size: 1.6em; margin-bottom: 10px;">
+        <h2 class="text-green-700 text-2xl font-bold mb-2">
             ✅ 再度のご参加ありがとうございます！
-             **追加チップをどうぞ！**
         </h2>
-        
-        <hr style="margin: 30px 0; border-top: 1px solid #ddd;">
-
-        <p style="font-size: 1.1em; color: #555;">
-            お時間があれば、こちらのアンケートへの解答もお願い致します。
-            今後の企画、文化祭当日の参考にさせていただきます。
+        <!-- 修正されたメッセージ -->
+        <p class="text-green-700 text-2xl font-extrabold leading-tight mb-4">
+            アンケートに答えてくれた人には、初回と同じ量のチップをお渡しします！
         </p>
         
-        <a href="https://forms.google.com/your-form-link" target="_blank" 
-           style="display: inline-block; padding: 10px 20px; margin-top: 20px; 
-                  background-color: #007bff; color: white; text-decoration: none; 
-                  border-radius: 5px; font-weight: bold; font-size: 1.2em;">
+        <hr class="my-6 border-t border-gray-300">
+        
+        <a href="https://forms.google.com/your-form-link" target="_blank"
+            class="inline-block py-3 px-6 mt-5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg rounded-lg shadow-md transition duration-200">
             アンケートはこちら
         </a>
     </div>
