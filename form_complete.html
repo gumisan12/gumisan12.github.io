@@ -63,8 +63,8 @@
         // これにより、次にindex.htmlにアクセスした際、訪問回数2回目以降のロジック（リダイレクト）が適用される
         try {
             // 注意: '2';ではなく、単に '2' が正しいです。
-            localStorage.setItem(VISITED_KEY, '2');
-            console.log("Local Storageの訪問回数を '2' に設定しました。");
+            localStorage.setItem(VISITED_KEY, '3');
+            console.log("Local Storageの訪問回数を '3' に設定しました。");
         } catch (e) {
             console.error("Local Storageへの書き込みに失敗しました:", e);
         }
