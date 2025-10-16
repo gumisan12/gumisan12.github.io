@@ -52,8 +52,8 @@
 </head>
 <body>
     <div class="container">
-        <!-- JSで内容が書き換わるコンテナ -->
-        <div id="content">
+        <!-- JSで内容が書き換わるコンテナ - 初期状態では非表示にし、JSで表示制御する -->
+        <div id="content" style="display: none;">
             <!-- 初期表示コンテンツ (JS実行前に一瞬表示される可能性あり) -->
             <h1 class="text-2xl font-bold mb-4 text-gray-800">2-4電子科カジノへようこそ！</h1>
             <p class="text-lg text-gray-600">
@@ -91,6 +91,8 @@
                     </p>
                 </div>
             `;
+            // コンテンツを設定後、表示を有効にする
+            contentDiv.style.display = 'block'; 
             
         } 
         // 2回目のアクセス時
@@ -126,9 +128,7 @@
                         </p>
                     </div>
                 `;
+                // コンテンツを設定後、表示を有効にする
+                contentDiv.style.display = 'block'; 
             }
         }
-        
-    </script>
-</body>
-</html>
