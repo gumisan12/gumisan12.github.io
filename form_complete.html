@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アンケートへのご協力ありがとうございます</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 400px;
+            width: 90%;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+        .staff-instruction {
+            border: 2px dashed #34d399; /* Green-400 */
+            background-color: #ecfdf5; /* Green-50 */
+            padding: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="p-5 flex justify-center items-center min-h-screen">
+    <div class="container">
+        
+        <h1 class="text-2xl font-extrabold mb-2 text-green-700">
+            アンケートに協力していただき、ありがとうございます！
+        </h1>
+        
+        <hr class="my-6 border-t-2 border-green-500">
+
+        <!-- ユーザー向けメッセージ -->
+        <div class="staff-instruction mb-6">
+            <p class="text-2xl font-bold text-gray-800 flex items-center justify-center">
+                <span class="text-3xl mr-3">✅</span>
+                受付にこの画面を提示してください！
+            </p>
+        </div>
+
+        <!-- スタッフ向け指示 -->
+        <p class="text-sm text-gray-600 mb-2 font-medium">
+            【スタッフ向け】
+        </p>
+        <p class="text-lg font-extrabold text-red-600">
+            アンケート：初回額と同等分をお渡ししてください。
+        </p>
+
+    </div>
+
+    <script>
+        // --- 訪問回数を「2」に上書きするJavaScript ---
+        const VISITED_KEY = 'festival_visited_count';
+        
+        // localStorageの値を強制的に '2' に設定する
+        // これにより、次にindex.htmlにアクセスした際、訪問回数2回目以降のロジック（リダイレクト）が適用される
+        try {
+            // 注意: '2';ではなく、単に '2' が正しいです。
+            localStorage.setItem(VISITED_KEY, '2');
+            console.log("Local Storageの訪問回数を '2' に設定しました。");
+        } catch (e) {
+            console.error("Local Storageへの書き込みに失敗しました:", e);
+        }
+    </script>
+</body>
+</html>
