@@ -2,95 +2,80 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2-4電子科カジノ 受付画面</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f7f7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .container {
-            max-width: 400px;
-            width: 90%;
-            padding: 24px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        /* 初回確認メッセージのスタイル（緑色で目立つように） */
-        .initial-check {
-            border: 4px solid #10b981; /* Tailwind green-500 */
-            background-color: #ecfdf5; /* Tailwind green-50 */
-            padding: 20px;
-            border-radius: 12px;
-            animation: fadeIn 1s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    <title>2-4電子科カジノへようこそ</title>
 </head>
 <body>
-    <div class="container">
-        <!-- 初期表示コンテンツ -->
-        <div id="content">
-            <h1 class="text-2xl font-bold mb-4 text-gray-800">2-4電子科カジノへようこそ！</h1>
-            <p class="text-lg text-gray-600">
-                こちらの画面を受付スタッフに見せてください。
-            </p>
-        </div>
+    <div id="content">
+        <p>
+            <!-- 初回のみ表示されるべきデフォルトメッセージ -->
+            こちらの画面を受付の人に見せてください。
+        </p>
     </div>
 
-    <script>
-        // --- 訪問者を識別するJavaScript ---
-        const VISITED_KEY = 'festival_visited_count'; // キー名を回数保持用に変更
-        const REDIRECT_BASE_URL = 'thankyou.html'; // リダイレクト先のベースURL
+<script>
+    // --- 訪問者を識別するJavaScript ---
+    const VISITED_KEY = 'festival_visited_count'; // 訪問回数を示すキー
+    const REDIRECT_URL = 'thankyou.html'; 
+    
+    // Local Storageから訪問回数を取得（なければ0）
+    let visitCount = parseInt(localStorage.getItem(VISITED_KEY) || '0', 10);
+    // Formの回答状況を取得
+    const isFormCompleted = localStorage.getItem('form_completed') === 'true';
+    
+    // 初回アクセス時 (1回目)
+    if (visitCount === 0) {
+        // 1回目：訪問履歴を保存 (1を設定)
+        localStorage.setItem(VISITED_KEY, '1');
         
-        // Local Storageから現在の訪問回数を取得
-        // 取得できなければ 0、取得できたら数値に変換
-        let visitCount = parseInt(localStorage.getItem(VISITED_KEY) || '0', 10);
+        // 初回訪問者向けのコンテンツを表示
+        document.getElementById('content').innerHTML = `
+            <div style="text-align: center; padding: 20px; background-color: #e6ffe6; border: 3px solid green; border-radius: 8px;">
+                <h2 style="color: green; font-size: 1.5em; margin-bottom: 10px;">✅ 初回入場を確認しました！</h2>
+                <p style="color: #333;">スタッフにこの画面を見せ、入場処理とチップを受け取ってください。</p>
+            </div>
+        `;
         
-        if (visitCount >= 1) {
-            // 履歴がある（2回目以降のアクセス）の場合
-            
-            // 訪問回数をインクリメント (例: 1 -> 2, 2 -> 3)
-            const newCount = visitCount + 1;
-            localStorage.setItem(VISITED_KEY, newCount.toString());
+    } 
+    // 2回目のアクセス時
+    else if (visitCount === 1) {
+        // 2回目：訪問履歴を更新 (2を設定)
+        localStorage.setItem(VISITED_KEY, '2');
+        
+        // 2回目用のページにリダイレクト
+        window.location.href = `${https://x.gd/ibBC2}?count=2`;
 
-            // 訪問回数をURLパラメータとしてリダイレクト先に渡す
-            // 例: thankyou.html?count=2
-            const redirectUrlWithCount = `${REDIRECT_BASE_URL}?count=${newCount}`;
-            
-            // ページを別のURLにリダイレクトする
-            window.location.href = redirectUrlWithCount;
-            
+    }
+    // 3回目以降のアクセス時 (訪問回数が2以上の状態でアクセス)
+    else if (visitCount >= 2) {
+        
+        // 訪問回数はこれ以上増やさない (常に count >= 3 でチェック)
+        // ここでは count=3 として扱い、リダイレクト先のメッセージを固定する
+        const finalCount = 3; 
+
+        if (isFormCompleted) {
+            // Form回答済みの場合: 3回目以降の特典ページへ進む
+            // ページ遷移させたいのであれば、ここでリダイレクトを実行
+            window.location.href = `${REDIRECT_URL}?count=${finalCount}`;
+
         } else {
-            // 履歴がない（初回アクセス）の場合
-            
-            // Local Storageに初回訪問回数 '1' を保存
-            localStorage.setItem(VISITED_KEY, '1');
-            
-            // 初回訪問者向けのコンテンツを追記
+            // Form未回答の場合: ページ遷移をブロックし、index.html上に終了メッセージを表示
+
+            // コンテンツを上書き
             document.getElementById('content').innerHTML = `
-                <div class="initial-check">
-                    <h2 class="text-3xl font-bold text-green-600 mb-2">
-                        ✅ 初回入場を確認しました！
-                    </h2>
-                    <p class="text-gray-700 mt-4 text-xl">
-                        スタッフにこの画面を見せ、入場処理とチップを受け取ってください。
+                <div style="text-align: center; padding: 20px; background-color: #fff0f0; border: 3px solid red; border-radius: 8px; max-width: 400px; margin: 40px auto; font-family: sans-serif;">
+                    <h2 style="color: red; font-size: 1.5em; margin-bottom: 10px;">⚠️ アンケートにご協力ください</h2>
+                    <p style="color: #333;">
+                        3回目以降のサービスは、アンケートにご回答いただいた方に限定しております。
+                    </p>
+                    <p style="color: #333; margin-top: 15px; font-weight: bold;">
+                        アンケートを回答後、再度このリンクを踏んでください。
                     </p>
                 </div>
             `;
+            // 3回目以降のアクセスでも count は 2 のまま維持したい場合は、localStorage.setItem(VISITED_KEY, '2'); を再度実行します。
         }
-    </script>
+    }
+    
+</script>
 </body>
 </html>
