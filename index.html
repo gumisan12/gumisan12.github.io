@@ -117,7 +117,7 @@
         
         // 4回目以降のアクセス時 (visitCount >= 3)
         // 3回目アクセス時に visitCount が 2 から 3 に設定されると、次のアクセス（4回目）でこのブロックに入ります。
-        else if (visitCount >= 3){ 
+        else if (visitCount >= 2){ 
             // 訪問履歴を '4' に設定
             localStorage.setItem(VISITED_KEY, '4'); 
             
