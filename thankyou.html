@@ -34,80 +34,24 @@
             </p>
         </div>
 
-        <!-- Local Storageのコードを再挿入 -->
-        <script>
-            const VISITED_KEY = 'festival_visited_count';
-            
-            try {
-                // NOTE: このCanvas環境では、localStorageはデータ永続化に使用できません。
-                // 永続化にはFirebase Firestoreを使用する必要があります。
-                localStorage.setItem(VISITED_KEY, '3');
-                console.log("Local Storageの訪問回数を '3' に設定しました。");
-            } catch (e) {
-                console.error("Local Storageへの書き込みに失敗しました:", e);
-            }
-        </script>
-        
-        <!-- 認証情報を表示するための要素 -->
+        <!-- デザイン補足 -->
         <div class="mt-8 pt-4 border-t border-gray-200">
-             <p id="auth-status" class="text-xs text-gray-500 break-all"></p>
+             
         </div>
     </div>
-
-    <!-- Firebase SDKの読み込みと初期化 (Canvas環境で必須) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+            <script>
+        // --- 訪問回数を「2」に上書きするJavaScript ---
+        const VISITED_KEY = 'festival_visited_count';
         
-        // Canvas環境から提供されるグローバル変数を使用
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let app;
-        let db;
-        let auth;
-        let userId = null;
-
-        const authStatusElement = document.getElementById('auth-status');
-
-        async function initializeFirebase() {
-            try {
-                // Firebase Appの初期化
-                if (Object.keys(firebaseConfig).length > 0) {
-                    app = initializeApp(firebaseConfig);
-                    db = getFirestore(app);
-                    auth = getAuth(app);
-                    console.log("Firebase initialized.");
-
-                    // 認証処理
-                    if (initialAuthToken) {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                        authStatusElement.innerHTML = '認証ステータス: カスタム認証でサインイン済み';
-                    } else {
-                        await signInAnonymously(auth);
-                        authStatusElement.innerHTML = '認証ステータス: 匿名認証でサインイン済み';
-                    }
-                    
-                    userId = auth.currentUser?.uid || crypto.randomUUID();
-                    authStatusElement.innerHTML += `<br>ユーザーID (App ID: ${appId}): ${userId}`;
-
-                } else {
-                    console.error("Firebase configuration is missing.");
-                    authStatusElement.textContent = 'Firebase設定が不足しています。';
-                }
-            } catch (error) {
-                console.error("Error during Firebase initialization or sign-in:", error);
-                authStatusElement.textContent = `認証エラー: ${error.message}`;
-            }
+        // localStorageの値を強制的に '2' に設定する
+        // これにより、次にindex.htmlにアクセスした際、訪問回数2回目以降のロジック（リダイレクト）が適用される
+        try {
+            // 注意: '2';ではなく、単に '2' が正しいです。
+            localStorage.setItem(VISITED_KEY, '3');
+            console.log("Local Storageの訪問回数を '3' に設定しました。");
+        } catch (e) {
+            console.error("Local Storageへの書き込みに失敗しました:", e);
         }
-
-        initializeFirebase();
-
-        // 外部からアクセスできるよう、グローバルスコープに公開（デバッグ用）
-        window.db = db;
-        window.auth = auth;
     </script>
     
 </body>
