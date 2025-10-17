@@ -3,49 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>追加チップ配布とアンケートのご案内</title>
+    <title>入場確認画面のプレビュー</title>
+    <!-- Tailwind CSS CDNを読み込み -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Tailwindのスタイルに合わせて、以前のインラインスタイルを整理 */
+        /* 全体のフォントをInterに設定し、背景と中央寄せを設定 */
         body {
-            font-family: sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #f7f7f7;
-        }
-        .custom-border {
-            border: 2px dashed gray;
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        .yellow-box {
-            background-color: #FFFACD;
-            border: 5px solid #FFD700;
-            padding: 15px;
-            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
         }
     </style>
 </head>
-<body class="p-5 flex justify-center items-center min-h-screen">
-    <div class="custom-border rounded-lg bg-white shadow-lg">
+<body>
+
+    <!-- コンテンツを囲むカード形式のコンテナ -->
+    <div class="max-w-lg w-full p-8 bg-white rounded-2xl shadow-2xl text-center border border-gray-100 transform hover:scale-[1.01] transition-transform duration-300">
         
-        <h1 class="text-xl font-bold mb-1 text-gray-800">
-            追加チップ配布のご案内
-        </h1>
-        
-        <h2 class="text-green-700 text-2xl font-bold mb-2">
-            ✅ 再度のご参加ありがとうございます！
-        </h2>
-        <!-- 修正されたメッセージ -->
-        <p class="text-green-700 text-2xl font-extrabold leading-tight mb-4">
-            アンケートに答えてくれた人には、初回と同じ量のチップをお渡しします！
-        </p>
-        
-        <hr class="my-6 border-t border-gray-300">
-        
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfDnpLX0UFQyxT9i9dIVtWS4AFbAttqnNC1fyvi1m6WFwGjXg/viewform?usp=sharing&ouid=117976412386506099755" target="_blank"
-            class="inline-block py-3 px-6 mt-5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg rounded-lg shadow-md transition duration-200">
-            アンケートはこちら
-        </a>
+        <!-- ユーザーが提供したコンテンツ -->
+        <div class="initial-check">
+            <h2 class="text-3xl font-extrabold text-green-600 mb-4 sm:text-4xl">
+                ✅ 2回目の入場を確認しました！
+            </h2>
+            <p class="text-gray-700 mt-6 text-xl sm:text-2xl leading-relaxed">
+                スタッフにこの画面を見せ、再入場処理を完了してください。
+            </p>
+        </div>
+
+        <!-- デザイン補足 -->
+        <div class="mt-8 pt-4 border-t border-gray-200">
+             
+        </div>
     </div>
+    
 </body>
 </html>
